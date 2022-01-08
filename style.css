@@ -1,0 +1,27 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1 {
+  color: green;
+}
+
+.cell {
+  background-color: lightblue;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+}
+#board {
+  border: 1px solid black;
+  display: flex;
+  flex-wrap: wrap;
+  width: 602px;
+}

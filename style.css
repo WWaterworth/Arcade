@@ -14,14 +14,27 @@ h1 {
 }
 
 .cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: lightblue;
+  color: black;
   width: 200px;
   height: 200px;
   border: 1px solid black;
+  font-size: 100px;
 }
 #board {
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
   width: 602px;
+}
+
+#playerNames {
+  display: flex;
+}
+
+.names {
+  padding-right: 15px;
 }

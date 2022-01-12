@@ -6,10 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tic-Tac-Toe</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer src="app.js"></script>
+    <script src="app.js" defer></script>
   </head>
   <body>
     <h1>Tic-Tac-Toe</h1>
+    <div id="playerNames">
+      <p class="names" id="playerX">Player 1</p>
+      <p class="names">VS.</p>
+      <p class="names" id="playerO">Player 2</p>
+    </div>
     <main id="board"></main>
+    <input
+      id="nameInput"
+      onfocus="this.value=''"
+      value="Enter player name"
+      type="text"
+    />
+    <button id="submitName" onclick="getInputValue()" type="submit">
+      Submit name
+    </button>
+    <button type="reset">Reset</button>
   </body>
 </html>

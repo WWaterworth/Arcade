@@ -1,47 +1,47 @@
+/*********************************DOM****************************/
+//grabs the game board
 const boardElem = document.getElementById("board");
 //grabs the playerX p tag
 const playerNameX = document.getElementById("playerX");
 //grabs the playerO p tag
 const playerNameO = document.getElementById("playerO");
-
+//grabs reset button
 const reset = document.getElementById("reset");
+//grabs current turn div
+const currentTurn = document.getElementById("currentTurn");
 
 //Default state of the game. array with two players, another array with empty cells
 const state = {
-  players: ["x", "y"],
+  players: ["", ""],
   board: [[null, null, null, null, null, null, null, null, null]],
   turn: true,
 };
 
 //changes turn boolean from true to false
-function changePlayer() {
+const changePlayer = () => {
   if (state.turn) {
+    currentTurn.innerText = `${state.players[1]}'s Turn`;
     state.turn = false;
   } else {
+    currentTurn.innerText = `${state.players[0]}'s Turn`;
     state.turn = true;
   }
-}
+};
 
-//function to reset the state of the game to blank.
-// function resetState() {
-//   state.players = ["x", "y"];
-//   state.board = [[null, null, null, null, null, null, null, null, null]];
-// }
-
-/*********************DOM*********************/
-//grabs the board element from the HTML
-
-function getInputValue() {
+const changePlayerName = () => {
   let inputVal = document.getElementById("nameInput").value;
+  //if playerX name is default, change playerX name to input value
   if (playerNameX.innerText === "Player 1") {
     playerNameX.innerText = inputVal;
+    state.players[0] = inputVal;
+    //otherwise change playerO name to input
   } else {
     playerNameO.innerText = inputVal;
+    state.players[1] = inputVal;
   }
-}
+};
 
-/* loops through board array and creates a div for each iteration with appendChild and assigns to game board(9) -> assigns cell class to each div created. assigns a 'dataset' to each div named index-[i] -> sets the content of each div to the value of the current -> state.board index -> sets the inner text of each div to content ('') */
-function renderBoard() {
+const renderBoard = () => {
   //sets html text blank
   boardElem.innerHTML = "";
   //creates a cell element
@@ -60,7 +60,7 @@ function renderBoard() {
     // set index in state to point at cell element
     state.board[0][i] = cellElem;
   }
-}
+};
 
 /****************************EVENT LISTENER *********************************/
 
@@ -68,9 +68,9 @@ function renderBoard() {
 boardElem.addEventListener("click", function takeTurn(event) {
   let cellIndex = event.target.dataset.index;
 
-  if (state.turn) {
+  if (state.turn === true) {
     state.board[0][cellIndex].innerText = "X";
-  } else {
+  } else if (state.turn === false) {
     state.board[0][cellIndex].innerText = "O";
   }
 

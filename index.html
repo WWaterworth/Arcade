@@ -8,15 +8,16 @@
     <link rel="stylesheet" href="style.css" />
     <script src="app.js" defer></script>
   </head>
-  
+
   <body>
     <h1>Tic-Tac-Toe</h1>
     <div id="playerNames">
       <p class="names" id="playerX">Player 1</p>
       <p class="names">VS.</p>
-      <p class="names" id="playerO">Player 2</p>
+      <p class="names" id="playerO">Computer</p>
     </div>
-    <div id="currentTurn">Enter player's names below</div>
+    <div id="currentTurn">Enter your name(s) below</div>
+    <h2 id="winner"></h2>
     <main id="board"></main>
     <input
       id="nameInput"
@@ -27,6 +28,6 @@
     <button id="submitName" onclick="changePlayerName()" type="submit">
       Submit name
     </button>
-    <button type="reset">Reset</button>
+    <button type="reset" onClick="resetState()">Reset</button>
   </body>
 </html>

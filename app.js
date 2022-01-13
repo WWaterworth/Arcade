@@ -9,11 +9,32 @@ const reset = document.getElementById("reset");
 //grabs current turn div
 const currentTurn = document.getElementById("currentTurn");
 
+const winner = document.getElementById("winner");
+
 //Default state of the game.
-const state = {
-  players: ["", ""],
-  board: [[null, null, null, null, null, null, null, null, null]],
+let state = {
+  players: ["Player 1", "Computer"],
+  board: [["", "", "", "", "", "", "", "", ""]],
   turn: true,
+  turnCount: 0,
+  winState: false,
+};
+
+const defaultState = {
+  players: ["Player 1", "Computer"],
+  board: [["", "", "", "", "", "", "", "", ""]],
+  turn: true,
+  turnCount: 0,
+  winState: false,
+};
+
+const resetState = () => {
+  state = defaultState;
+  document.querySelectorAll(".cell").forEach((cell) => (cell.innerHTML = ""));
+  playerNameX.innerText = "Player 1";
+  playerNameO.innerText = "Computer";
+  winner.innerText = "";
+  currentTurn.innerText = "Enter your name(s) below";
 };
 
 //2d array of winning combinations
@@ -27,6 +48,150 @@ const winStates = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+const checkRow = () => {
+  if (
+    state.board[0][0].textContent === "X" &&
+    state.board[0][1].textContent === "X" &&
+    state.board[0][2].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][0].textContent === "O" &&
+    state.board[0][1].textContent === "O" &&
+    state.board[0][2].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+
+  if (
+    state.board[0][3].textContent === "X" &&
+    state.board[0][4].textContent === "X" &&
+    state.board[0][5].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][3].textContent === "O" &&
+    state.board[0][4].textContent === "O" &&
+    state.board[0][5].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+  if (
+    state.board[0][6].textContent === "X" &&
+    state.board[0][7].textContent === "X" &&
+    state.board[0][8].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][6].textContent === "O" &&
+    state.board[0][7].textContent === "O" &&
+    state.board[0][8].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+};
+
+const checkCol = () => {
+  if (
+    state.board[0][0].textContent === "X" &&
+    state.board[0][3].textContent === "X" &&
+    state.board[0][6].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][0].textContent === "O" &&
+    state.board[0][3].textContent === "O" &&
+    state.board[0][6].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+
+  if (
+    state.board[0][1].textContent === "X" &&
+    state.board[0][4].textContent === "X" &&
+    state.board[0][7].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][1].textContent === "O" &&
+    state.board[0][4].textContent === "O" &&
+    state.board[0][7].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+  if (
+    state.board[0][2].textContent === "X" &&
+    state.board[0][5].textContent === "X" &&
+    state.board[0][8].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][2].textContent === "O" &&
+    state.board[0][5].textContent === "O" &&
+    state.board[0][8].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+};
+
+const checkDiag = () => {
+  if (
+    state.board[0][0].textContent === "X" &&
+    state.board[0][4].textContent === "X" &&
+    state.board[0][8].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][0].textContent === "O" &&
+    state.board[0][4].textContent === "O" &&
+    state.board[0][8].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+
+  if (
+    state.board[0][2].textContent === "X" &&
+    state.board[0][4].textContent === "X" &&
+    state.board[0][6].textContent === "X"
+  ) {
+    winner.innerText = `${state.players[0]} Wins!`;
+    state.winState = true;
+  } else if (
+    state.board[0][2].textContent === "O" &&
+    state.board[0][4].textContent === "O" &&
+    state.board[0][6].textContent === "O"
+  ) {
+    winner.innerText = `${state.players[1]} Wins!`;
+    state.winState = true;
+  }
+};
+
+const checkDraw = () => {
+  if (state.winState === false && state.turnCount === 9) {
+    winner.innerText = "It's a draw! Try again";
+  }
+};
+const checkWin = () => {
+  checkRow();
+  checkCol();
+  checkDiag();
+  checkDraw();
+};
 
 //changes turn boolean from true to false and display's which player's turn it is
 const changePlayer = () => {
@@ -85,7 +250,8 @@ boardElem.addEventListener("click", function takeTurn(event) {
     } else if (state.turn === false) {
       state.board[0][cellIndex].innerText = "O";
     }
-
+    state.turnCount += 1;
+    checkWin();
     changePlayer();
   }
 });

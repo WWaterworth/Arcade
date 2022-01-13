@@ -1,4 +1,3 @@
-/*********************************DOM****************************/
 //grabs the game board
 const boardElem = document.getElementById("board");
 //grabs the playerX p tag
@@ -10,14 +9,26 @@ const reset = document.getElementById("reset");
 //grabs current turn div
 const currentTurn = document.getElementById("currentTurn");
 
-//Default state of the game. array with two players, another array with empty cells
+//Default state of the game.
 const state = {
   players: ["", ""],
   board: [[null, null, null, null, null, null, null, null, null]],
   turn: true,
 };
 
-//changes turn boolean from true to false
+//2d array of winning combinations
+const winStates = [
+  [0, 1, 2],
+  [3, 4, 5],
+  [6, 7, 8],
+  [0, 3, 6],
+  [1, 4, 7],
+  [2, 5, 8],
+  [0, 4, 8],
+  [2, 4, 6],
+];
+
+//changes turn boolean from true to false and display's which player's turn it is
 const changePlayer = () => {
   if (state.turn) {
     currentTurn.innerText = `${state.players[1]}'s Turn`;
@@ -62,19 +73,21 @@ const renderBoard = () => {
   }
 };
 
-/****************************EVENT LISTENER *********************************/
-
 //Event listener to change the content of the selected Div
 boardElem.addEventListener("click", function takeTurn(event) {
-  let cellIndex = event.target.dataset.index;
+  //if event target has no text content - false
+  if (!event.target.textContent) {
+    //gives value of event the target's dataset index
+    let cellIndex = event.target.dataset.index;
+    //if turn state is true/false, insert X/O onto board
+    if (state.turn === true) {
+      state.board[0][cellIndex].innerText = "X";
+    } else if (state.turn === false) {
+      state.board[0][cellIndex].innerText = "O";
+    }
 
-  if (state.turn === true) {
-    state.board[0][cellIndex].innerText = "X";
-  } else if (state.turn === false) {
-    state.board[0][cellIndex].innerText = "O";
+    changePlayer();
   }
-
-  changePlayer();
 });
 
 renderBoard();

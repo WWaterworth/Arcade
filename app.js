@@ -216,7 +216,7 @@ const changePlayerName = () => {
 };
 
 // //Mark a random cell
-/*Need to debug. Error reading possibleMove as undefined. Presume it's not targeting DOM element */
+/*Work in progress */
 
 // function markRandom() {
 //   let randomIndex = Math.floor(Math.random * state.board[0][0].length);

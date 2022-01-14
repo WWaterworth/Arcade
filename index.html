@@ -17,8 +17,6 @@
       <p class="names" id="playerO">Computer</p>
     </div>
     <div id="currentTurn">Enter your name(s) below</div>
-    <h2 id="winner"></h2>
-    <main id="board"></main>
     <input
       id="nameInput"
       onfocus="this.value=''"
@@ -28,6 +26,9 @@
     <button id="submitName" onclick="changePlayerName()" type="submit">
       Submit name
     </button>
+    <h2 id="winner"></h2>
+    <main id="board"></main>
+
     <button type="reset" onClick="resetState()">Reset</button>
   </body>
 </html>

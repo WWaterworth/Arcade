@@ -19,16 +19,16 @@ h1 {
   align-items: center;
   background-color: lightblue;
   color: black;
-  width: 150px;
-  height: 150px;
+  width: 200px;
+  height: 200px;
   border: 1px solid black;
-  font-size: 40px;
+  font-size: 100px;
 }
 #board {
   border: 1px solid black;
   display: flex;
   flex-wrap: wrap;
-  width: 452px;
+  width: 602px;
 }
 
 #playerNames {

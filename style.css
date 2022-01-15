@@ -7,22 +7,22 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #264d5a;
+}
+
+button {
+  background-color: #264d5a;
+  color: #70a9a1;
+  border-radius: 25%;
+  margin-top: 5px;
 }
 
 h1 {
-  color: green;
+  color: #589197;
 }
 
-.cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: lightblue;
-  color: black;
-  width: 200px;
-  height: 200px;
-  border: 1px solid black;
-  font-size: 100px;
+input {
+  margin-top: 10px;
 }
 #board {
   border: 1px solid black;
@@ -31,10 +31,28 @@ h1 {
   width: 602px;
 }
 
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #589197;
+  color: #0b2027;
+  width: 200px;
+  height: 200px;
+  border: 1px solid black;
+  font-size: 100px;
+}
+
 #playerNames {
   display: flex;
 }
 
 .names {
   padding-right: 15px;
+}
+
+#playerNames,
+#currentTurn,
+#winner {
+  color: #70a9a1;
 }

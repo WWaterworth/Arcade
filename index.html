@@ -16,19 +16,26 @@
       <p class="names">VS.</p>
       <p class="names" id="playerO">Computer</p>
     </div>
-    <div id="currentTurn">Enter your name(s) below</div>
+    <div id="currentTurn">Enter name(s) below</div>
+
     <input
       id="nameInput"
       onfocus="this.value=''"
       value="Enter player name"
       type="text"
     />
-    <button id="submitName" onclick="changePlayerName()" type="submit">
+
+    <button
+      id="submitName"
+      onclick="changePlayerName()"
+      type="submit"
+      value="reset"
+    >
       Submit name
     </button>
+
     <h2 id="winner"></h2>
     <main id="board"></main>
-
     <button type="reset" onClick="resetState()">Reset</button>
   </body>
 </html>

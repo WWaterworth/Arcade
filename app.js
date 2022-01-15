@@ -30,7 +30,7 @@ const defaultState = {
 };
 
 //clear board reset current state to default state of the game
-/* Need to debug, can't mark cells after they are cleared assuming the changed state is interfering with the eventListener logic*/
+/* Need to debug Only the first reset works.*/
 const resetState = () => {
   state = defaultState;
   document
@@ -179,10 +179,12 @@ const checkDiag = () => {
 
 //check to see if there's a draw
 const checkDraw = () => {
+  //if there is no win and the turn count reaches 9, declare a draw
   if (state.winState === false && state.turnCount === 9) {
     winner.innerText = "It's a draw! Try again";
   }
 };
+//Check rows/columns/diagonal for a win or a draw
 const checkWin = () => {
   checkRow();
   checkCol();
@@ -208,16 +210,27 @@ const changePlayerName = () => {
   if (playerNameX.innerText === "Player 1") {
     playerNameX.innerText = inputVal;
     state.players[0] = inputVal;
+    currentTurn.innerText = `${state.players[0]}'s Turn`;
     //otherwise change playerO name to input
-  } else {
+  } else if (
+    //If player 1 name is changed and player 2 name is not, change player 2 name
+    playerNameX.innerText !== "Player 1" &&
+    playerNameO.innerText === "Computer"
+  ) {
     playerNameO.innerText = inputVal;
     state.players[1] = inputVal;
+    currentTurn.innerText = `${state.players[0]}'s Turn`;
+    //if player 1 name and player 2 name are changed, display alert
+  } else {
+    alert("Names have already been entered.");
   }
+
+  document.getElementById("nameInput").value = "";
 };
 
-// //Mark a random cell
 /*Work in progress */
 
+//mark a random cell
 // function markRandom() {
 //   let randomIndex = Math.floor(Math.random * state.board[0][0].length);
 //   let possibleMove = state.board[0][randomIndex];
@@ -260,15 +273,17 @@ boardElem.addEventListener("click", function takeTurn(event) {
     } else if (state.turn === false) {
       state.board[0][cellIndex].textContent = "O";
     }
-    console.log(event.target);
+
     state.turnCount += 1;
     checkWin();
     changePlayer();
 
-    //   //if it's player 2's turn and no name has enter, mark a random cell
-    //   if (state.players[1] === "Computer" && state.turn % 2 === 0) {
-    //     markRandom();
-    //   }
+    //Work in progress //
+
+    /*if it's player 2's turn and no name has been entered, mark a random cell
+    if (state.players[1] === "Computer" && state.turn % 2 === 0) {
+      markRandom();
+    }*/
   }
 });
 

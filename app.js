@@ -1,17 +1,10 @@
-//grabs the game board
 const boardElem = document.getElementById("board");
-//grabs the playerX p tag
 const playerNameX = document.getElementById("playerX");
-//grabs the playerO p tag
 const playerNameO = document.getElementById("playerO");
-//grabs reset button
 const reset = document.getElementById("reset");
-//grabs current turn div to display current turn
 const currentTurn = document.getElementById("currentTurn");
-//grabs the winner element to display win/draw
 const winner = document.getElementById("winner");
 
-//Default state of the game.
 let state = {
   players: ["Player 1", "Computer"],
   board: [["", "", "", "", "", "", "", "", ""]],
@@ -20,7 +13,6 @@ let state = {
   winState: false,
 };
 
-//default state of the game
 const defaultState = {
   players: ["Player 1", "Computer"],
   board: [["", "", "", "", "", "", "", "", ""]],
@@ -29,8 +21,6 @@ const defaultState = {
   winState: false,
 };
 
-//clear board reset current state to default state of the game
-/* Need to debug Only the first reset works.*/
 const resetState = () => {
   state = defaultState;
   document
@@ -42,7 +32,7 @@ const resetState = () => {
   currentTurn.innerText = "Enter your name(s) below";
   renderBoard();
 };
-//check if there is a win in rows
+
 const checkRow = () => {
   if (
     state.board[0][0].textContent === "X" &&
@@ -92,7 +82,6 @@ const checkRow = () => {
   }
 };
 
-//check if there is a win in columns
 const checkCol = () => {
   if (
     state.board[0][0].textContent === "X" &&
@@ -142,7 +131,6 @@ const checkCol = () => {
   }
 };
 
-//check if there is a win diagonally
 const checkDiag = () => {
   if (
     state.board[0][0].textContent === "X" &&
@@ -177,14 +165,12 @@ const checkDiag = () => {
   }
 };
 
-//check to see if there's a draw
 const checkDraw = () => {
-  //if there is no win and the turn count reaches 9, declare a draw
   if (state.winState === false && state.turnCount === 9) {
     winner.innerText = "It's a draw! Try again";
   }
 };
-//Check rows/columns/diagonal for a win or a draw
+
 const checkWin = () => {
   checkRow();
   checkCol();
@@ -192,7 +178,6 @@ const checkWin = () => {
   checkDraw();
 };
 
-//changes turn boolean from true to false and display's which player's turn it is
 const changePlayer = () => {
   if (state.turn) {
     currentTurn.innerText = `${state.players[1]}'s Turn`;
@@ -203,24 +188,19 @@ const changePlayer = () => {
   }
 };
 
-//change default names to display player's names
 const changePlayerName = () => {
-  let inputVal = document.getElementById("nameInput").value;
-  //if playerX name is default, change playerX name to input value
+  const inputVal = document.getElementById("nameInput").value;
   if (playerNameX.innerText === "Player 1") {
     playerNameX.innerText = inputVal;
     state.players[0] = inputVal;
     currentTurn.innerText = `${state.players[0]}'s Turn`;
-    //otherwise change playerO name to input
   } else if (
-    //If player 1 name is changed and player 2 name is not, change player 2 name
     playerNameX.innerText !== "Player 1" &&
     playerNameO.innerText === "Computer"
   ) {
     playerNameO.innerText = inputVal;
     state.players[1] = inputVal;
     currentTurn.innerText = `${state.players[0]}'s Turn`;
-    //if player 1 name and player 2 name are changed, display alert
   } else {
     alert("Names have already been entered.");
   }
@@ -228,46 +208,33 @@ const changePlayerName = () => {
   document.getElementById("nameInput").value = "";
 };
 
-/*Work in progress */
+function markCell() {
+  for (let i = 0; i < state.board[0].length; i++) {
+    const currentCell = state.board[0][i];
 
-//mark a random cell
-// function markRandom() {
-//   let randomIndex = Math.floor(Math.random * state.board[0][0].length);
-//   let possibleMove = state.board[0][randomIndex];
-//   console.log(possibleMove);
-//   if (!possibleMove.textContent) {
-//     possibleMove.textContent = "O";
-//   }
-// }
+    if (!currentCell.innerText) {
+      currentCell.innerText = "O";
+      return;
+    }
+  }
+}
 
 const renderBoard = () => {
-  //sets html text blank
   boardElem.innerHTML = "";
-  //creates a cell element
   for (let i = 0; i < state.board[0].length; i++) {
     const cellElem = document.createElement("div");
-    //assigns cell class to created cellElem div
     cellElem.className = "cell";
-    //assigns a 'dataset' to cell elem called index-[i] as the loop iterates
     cellElem.dataset.index = i;
-    //sets the content of the board to the current index of state.board
-    let content = state.board[0][i];
-    //sets the inner text of the cell element to the index of state.board
+    const content = state.board[0][i];
     cellElem.innerText = content;
-    //attach the cell to the parent container (main html tag)
     boardElem.appendChild(cellElem);
-    // set index in state to point at cell element
     state.board[0][i] = cellElem;
   }
 };
 
-//Event listener to change the content of the selected Div
 boardElem.addEventListener("click", function takeTurn(event) {
-  //if event target has no text content
   if (!event.target.textContent) {
-    //gives value of event the target's dataset index
-    let cellIndex = event.target.dataset.index;
-    //if turn state is true/false, insert X/O onto board
+    const cellIndex = event.target.dataset.index;
     if (state.turn === true) {
       state.board[0][cellIndex].textContent = "X";
     } else if (state.turn === false) {
@@ -278,12 +245,11 @@ boardElem.addEventListener("click", function takeTurn(event) {
     checkWin();
     changePlayer();
 
-    //Work in progress //
-
-    /*if it's player 2's turn and no name has been entered, mark a random cell
     if (state.players[1] === "Computer" && state.turn % 2 === 0) {
-      markRandom();
-    }*/
+      markCell();
+      checkWin();
+      changePlayer();
+    }
   }
 });
 
